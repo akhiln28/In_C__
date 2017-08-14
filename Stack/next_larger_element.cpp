@@ -12,19 +12,19 @@ vector<int> next_larger_element(vector<int> v){
     for(int i = v.size() - 2;i >= 0;i--)
     {
         if(v[i] >= v[st.top()]){
-            while(v[i] > v[st.top()]) st.pop();
-            if(v[i] < v[st.top()]) ans[v[i]] = v[st.top()];
-            else if(st.empty()) st.push(v[i]);
+            while(v[i] >= v[st.top()]) st.pop();
+            if(st.empty()) st.push(i);
+            else if(v[i] < v[st.top()])
+            {
+                st.push(i);
+                ans[i] = v[st.top()];
+            }
         }
         else
         {
             ans[i] = v[st.top()];
             st.push(i);
         }
-    }
-    while(!st.empty()){
-        ans[st.top()] = -1;
-        st.pop();
     }
     return ans;
 }
